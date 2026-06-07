@@ -103,7 +103,9 @@
 
   /* sticky bottom WhatsApp — mirrors the top glass nav (same width, radius, glass) */
   .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:transparent;pointer-events:none;
-    padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+    padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s ease}
+  .tabbar.is-hidden{transform:translateY(135%);opacity:0}
   .wa-fab{pointer-events:auto;display:flex;width:100%;align-items:center;justify-content:center;gap:10px;
     font-size:15.5px;font-weight:700;color:#fff;letter-spacing:.01em;
     background:rgba(37,211,102,.82);
@@ -286,7 +288,7 @@
   .addr-card .ln a:hover{color:var(--orange-d)}
 
   /* ---------- footer ---------- */
-  footer{margin-top:30px;border-top:1px solid var(--line);background:rgba(255,255,255,.4);backdrop-filter:blur(8px);padding-bottom:84px}
+  footer{margin-top:30px;border-top:1px solid var(--line);background:rgba(255,255,255,.4);backdrop-filter:blur(8px);padding-bottom:40px}
   .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:38px;padding:50px 0 34px}
   @media(max-width:780px){.foot{grid-template-columns:1fr 1fr;gap:30px}}
   @media(max-width:480px){.foot{grid-template-columns:1fr}}
@@ -676,6 +678,16 @@
       requestAnimationFrame(()=>setTimeout(()=>el.classList.add('in'), 60));
     } else io.observe(el);
   });
+
+  // hide the sticky WhatsApp bar once the very bottom (footer) is reached
+  const tabbar = document.querySelector('.tabbar');
+  const footEnd = document.querySelector('.foot-bot');
+  if(tabbar && footEnd){
+    const fo = new IntersectionObserver((es)=>{
+      es.forEach(e=> tabbar.classList.toggle('is-hidden', e.isIntersecting));
+    }, {threshold:0});
+    fo.observe(footEnd);
+  }
 </script>
 </body>
 </html>
