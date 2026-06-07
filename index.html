@@ -76,7 +76,7 @@
   .brand .mark{display:block;flex:none}
   .brand .mark img{height:33px;width:auto}
   .brand .wm{font-weight:800;letter-spacing:.2em;font-size:16px;color:var(--ink)}
-  nav.menu{display:flex;gap:4px}
+  nav.menu{display:flex;gap:4px;margin-left:auto;margin-right:6px}
   nav.menu a{
     font-size:14.5px;font-weight:500;color:var(--ink2);padding:8px 14px;border-radius:10px;
     transition:color .18s,background .18s;
@@ -96,11 +96,23 @@
   @media(max-width:900px){nav.menu{display:none}.burger{display:block}}
   @media(max-width:520px){
     .brand .wm{display:none}
-    header .nav-cta .wa span{display:none}
-    header .nav-cta .wa{padding:10px}
     .eyebrow{white-space:normal;line-height:1.6}
     .search button{padding:11px 15px}
   }
+
+  /* sticky bottom WhatsApp — transparent bar, button only */
+  .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;
+    background:transparent;pointer-events:none;
+    padding:0 16px calc(16px + env(safe-area-inset-bottom,0px))}
+  .wa-fab{pointer-events:auto;display:inline-flex;align-items:center;gap:9px;
+    font-size:15px;font-weight:700;color:#fff;background:var(--wa);
+    padding:13px 24px;border-radius:14px;letter-spacing:.01em;
+    box-shadow:0 12px 30px -6px rgba(37,211,102,.6),0 2px 8px rgba(0,0,0,.14);
+    transition:transform .18s,background .18s,box-shadow .18s}
+  .wa-fab:hover{background:var(--wa-d);transform:translateY(-2px);
+    box-shadow:0 18px 40px -6px rgba(37,211,102,.72),0 2px 8px rgba(0,0,0,.14)}
+  .wa-fab:active{transform:translateY(0)}
+  .wa-fab svg{width:19px;height:19px}
 
   /* ---------- hero ---------- */
   .hero{padding:54px 0 30px}
@@ -273,7 +285,7 @@
   .addr-card .ln a:hover{color:var(--orange-d)}
 
   /* ---------- footer ---------- */
-  footer{margin-top:30px;border-top:1px solid var(--line);background:rgba(255,255,255,.4);backdrop-filter:blur(8px)}
+  footer{margin-top:30px;border-top:1px solid var(--line);background:rgba(255,255,255,.4);backdrop-filter:blur(8px);padding-bottom:84px}
   .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:38px;padding:50px 0 34px}
   @media(max-width:780px){.foot{grid-template-columns:1fr 1fr;gap:30px}}
   @media(max-width:480px){.foot{grid-template-columns:1fr}}
@@ -314,8 +326,6 @@
     <div class="util-l">JDM Export Studio <b>(Warmglow Ltd.)</b> · Hachioji, Tokyo</div>
     <div class="util-r">
       <span class="clock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Japan <b id="jst">--:--</b></span>
-      <span class="sep">/</span>
-      <span>Premium Member · 2nd Year</span>
     </div>
   </div>
 </div>
@@ -336,10 +346,6 @@
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-cta">
-        <a class="wa" href="#contact">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.96 1.36-.5.04-.96.23-3.24-.68-2.74-1.08-4.46-3.88-4.6-4.06-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.24-.27.53-.34.71-.34.18 0 .36.002.51.01.16.007.39-.06.6.46.24.6.82 2.07.89 2.22.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.54.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.05 1.27.27.13.42.11.58-.07.16-.18.66-.77.84-1.04.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.13.45.2.51.31.06.11.06.65-.18 1.33Z"/></svg>
-          <span>WhatsApp</span>
-        </a>
         <button class="burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       </div>
     </div>
@@ -352,12 +358,12 @@
     <div class="hero-grid">
       <div class="hero-left">
         <span class="eyebrow rv" style="--d:0">Est. Hachioji · Tokyo · Worldwide export</span>
-        <h1 class="head rv" style="--d:80">Find your<br><em>JDM</em></h1>
+        <h1 class="head rv" style="--d:80">Find your <em>JDM</em></h1>
         <p class="lede rv" style="--d:160"><b>1,109 inspected vehicles</b> in stock at our Hachioji yard — kei trucks, sedans, sports cars and the occasional supercar, shipped to your port.</p>
 
         <div class="search rv" style="--d:240">
           <svg class="mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
-          <input type="text" placeholder="Make, model or keyword — e.g. Skyline GT-R" aria-label="Search stock">
+          <input id="searchbox" type="text" placeholder="Make, model or keyword — e.g. Skyline GT-R" aria-label="Search stock">
           <button>Search</button>
         </div>
         <div class="quick rv" style="--d:300">
@@ -635,7 +641,20 @@
   </div>
 </footer>
 
+<!-- sticky bottom WhatsApp (transparent bar, button only) -->
+<div class="tabbar">
+  <a class="wa-fab" href="#contact" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.96 1.36-.5.04-.96.23-3.24-.68-2.74-1.08-4.46-3.88-4.6-4.06-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.24-.27.53-.34.71-.34.18 0 .36.002.51.01.16.007.39-.06.6.46.24.6.82 2.07.89 2.22.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.54.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.05 1.27.27.13.42.11.58-.07.16-.18.66-.77.84-1.04.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.13.45.2.51.31.06.11.06.65-.18 1.33Z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
 <script>
+  // shorter search placeholder on small screens
+  const sb = document.getElementById('searchbox');
+  function ph(){ if(sb) sb.placeholder = window.innerWidth < 560 ? 'Search make or model…' : 'Make, model or keyword — e.g. Skyline GT-R'; }
+  ph(); window.addEventListener('resize', ph);
+
   // live Japan time (JST)
   function tick(){
     try{
