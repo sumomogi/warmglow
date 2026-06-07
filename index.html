@@ -291,6 +291,13 @@
   .foot-bot .soc a{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:.16s}
   .foot-bot .soc a:hover{color:#fff;background:var(--orange);border-color:var(--orange)}
   .foot-bot .soc svg{width:15px;height:15px}
+  .foot-bot p a.name{color:var(--ink);font-weight:600;border-bottom:1px solid var(--line)}
+  .foot-bot p a.name:hover{color:var(--orange-d);border-color:var(--orange)}
+  .inq{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+    color:var(--wa-d);border:1px solid rgba(37,211,102,.4);background:rgba(37,211,102,.08);
+    padding:8px 14px;border-radius:10px;white-space:nowrap;transition:.16s}
+  .inq:hover{background:var(--wa);color:#fff;border-color:var(--wa)}
+  .inq svg{width:15px;height:15px}
 
   /* ---------- reveal ---------- */
   .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
@@ -619,13 +626,11 @@
   </div>
   <div class="foot-bot">
     <div class="wrap">
-      <p>© 2026–2027 JDM Export Studio (Warmglow Ltd.). All rights reserved. · Powered by JapaneseCarTrade.com</p>
-      <div class="soc">
-        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v7h3v-7H16l.5-3h-3v-2c0-.6.4-1 1-1Z"/></svg></a>
-        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3h3l-7 8 8 10h-6l-5-6-5 6H2l8-9L2 3h6l4 5 5-5Z"/></svg></a>
-        <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg></a>
-      </div>
+      <p>© 2026 JDM Export Studio (Warmglow Ltd.) · Concept mockup by Takitonnect — an independent redesign, not the official site.</p>
+      <a class="inq" href="https://wa.me/818021567329?text=Hi%20Takitonnect%2C%20I%27d%20like%20to%20discuss%20a%20design%20project." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.96 1.36-.5.04-.96.23-3.24-.68-2.74-1.08-4.46-3.88-4.6-4.06-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.24-.27.53-.34.71-.34.18 0 .36.002.51.01.16.007.39-.06.6.46.24.6.82 2.07.89 2.22.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.54.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.05 1.27.27.13.42.11.58-.07.16-.18.66-.77.84-1.04.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.13.45.2.51.31.06.11.06.65-.18 1.33Z"/></svg>
+        Design inquiry &rarr;
+      </a>
     </div>
   </div>
 </footer>
