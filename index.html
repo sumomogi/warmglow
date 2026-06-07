@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warmglow — JDM Export Studio, Hachioji, Tokyo</title>
+<meta name="description" content="JDM Export Studio (Warmglow Ltd.) — 1,109 inspected Japanese vehicles in stock at our Hachioji yard, shipped worldwide from Tokyo.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<style>
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendard-variable.css");
+
+  :root{
+    --bg1:#f7f6f4; --bg2:#efedea; --bg3:#e8e6e1;
+    --ink:#221f1a; --ink2:#6f695f; --ink3:#a8a299;
+    --line:rgba(34,31,26,.11); --line-2:rgba(34,31,26,.07);
+    --orange:#ee7d3f; --orange-d:#d2611f; --amber:#f7a23a;
+    --wa:#25d366; --wa-d:#1aa851;
+    --glass:rgba(255,255,255,.58); --glass-2:rgba(255,255,255,.42);
+    --glass-brd:rgba(255,255,255,.9);
+    --surf:#ffffff;
+    --r:16px; --r-sm:11px; --r-lg:22px;
+    --sh:0 12px 38px -12px rgba(120,104,84,.28);
+    --sh-sm:0 4px 16px -6px rgba(120,104,84,.22);
+    --maxw:1200px;
+    --fs:"Pretendard Variable",Pretendard,-apple-system,system-ui,sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--fs); color:var(--ink); background:var(--bg1);
+    -webkit-font-smoothing:antialiased; line-height:1.55; overflow-x:hidden;
+    font-feature-settings:"ss01","cv01"; letter-spacing:-.011em;
+  }
+  /* atmosphere: warm glow + grain, true to the brand name, kept very faint */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:
+      radial-gradient(58% 50% at 88% -8%, rgba(247,162,58,.20), transparent 60%),
+      radial-gradient(46% 42% at 4% 8%, rgba(238,125,63,.10), transparent 62%),
+      linear-gradient(180deg,var(--bg1),var(--bg2) 60%,var(--bg3));
+  }
+  body::after{
+    content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  }
+
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  svg{display:block}
+
+  /* ---------- top utility bar ---------- */
+  .util{font-size:12.5px;color:var(--ink2);border-bottom:1px solid var(--line-2)}
+  .util .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:16px}
+  .util b{color:var(--ink);font-weight:600}
+  .util-r{display:flex;gap:20px;align-items:center}
+  .clock{display:inline-flex;align-items:center;gap:7px}
+  .clock svg{width:13px;height:13px;color:var(--orange)}
+  .util .sep{color:var(--ink3)}
+  @media(max-width:680px){.util-l{display:none}.util .wrap{justify-content:center}}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:40}
+  .nav{
+    margin-top:10px;
+    background:var(--glass);backdrop-filter:blur(20px) saturate(150%);
+    -webkit-backdrop-filter:blur(20px) saturate(150%);
+    border:1px solid var(--glass-brd);border-radius:var(--r-lg);
+    box-shadow:var(--sh-sm);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 14px 11px 18px;
+  }
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand .mark{display:block;flex:none}
+  .brand .mark img{height:33px;width:auto}
+  .brand .wm{font-weight:800;letter-spacing:.2em;font-size:16px;color:var(--ink)}
+  nav.menu{display:flex;gap:4px}
+  nav.menu a{
+    font-size:14.5px;font-weight:500;color:var(--ink2);padding:8px 14px;border-radius:10px;
+    transition:color .18s,background .18s;
+  }
+  nav.menu a:hover{color:var(--ink);background:rgba(255,255,255,.55)}
+  nav.menu a.active{color:var(--ink);font-weight:600}
+  .nav-cta{display:flex;align-items:center;gap:10px}
+  .wa{
+    display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;
+    background:var(--wa);color:#fff;padding:10px 16px;border-radius:11px;
+    box-shadow:0 6px 18px -6px rgba(37,211,102,.7);transition:transform .16s,background .18s;
+  }
+  .wa:hover{background:var(--wa-d);transform:translateY(-1px)}
+  .wa svg{width:16px;height:16px}
+  .burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:9px;cursor:pointer}
+  .burger svg{width:18px;height:18px;color:var(--ink)}
+  @media(max-width:900px){nav.menu{display:none}.burger{display:block}}
+  @media(max-width:520px){
+    .brand .wm{display:none}
+    header .nav-cta .wa span{display:none}
+    header .nav-cta .wa{padding:10px}
+    .eyebrow{white-space:normal;line-height:1.6}
+    .search button{padding:11px 15px}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:54px 0 30px}
+  .hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;align-items:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--orange-d);margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--orange)}
+  h1.head{
+    font-size:clamp(40px,6.4vw,72px);line-height:.98;font-weight:800;letter-spacing:-.03em;
+    margin-bottom:22px;
+  }
+  h1.head em{font-style:normal;color:var(--orange)}
+  .lede{font-size:17.5px;color:var(--ink2);max-width:30em;margin-bottom:30px}
+  .lede b{color:var(--ink);font-weight:600}
+
+  .search{
+    background:var(--glass);backdrop-filter:blur(18px) saturate(150%);
+    -webkit-backdrop-filter:blur(18px) saturate(150%);
+    border:1px solid var(--glass-brd);border-radius:15px;box-shadow:var(--sh-sm);
+    display:flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;max-width:520px;
+  }
+  .search svg.mag{width:19px;height:19px;color:var(--ink3);flex:none}
+  .search input{
+    flex:1;min-width:0;border:none;background:none;font-family:var(--fs);font-size:15.5px;color:var(--ink);
+    padding:11px 2px;outline:none;
+  }
+  .search input::placeholder{color:var(--ink3)}
+  .search button{
+    font-family:var(--fs);font-weight:600;font-size:14.5px;color:#fff;background:var(--orange);
+    border:none;border-radius:10px;padding:11px 20px;cursor:pointer;transition:background .18s;
+  }
+  .search button:hover{background:var(--orange-d)}
+  .quick{display:flex;gap:7px 18px;flex-wrap:wrap;margin-top:14px;font-size:13.5px;color:var(--ink2)}
+  .quick span{color:var(--ink3);font-size:12px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+  .quick a{border-bottom:1px solid transparent;transition:border-color .18s,color .18s}
+  .quick a:hover{color:var(--orange-d);border-color:var(--orange)}
+
+  .stats{display:flex;gap:0;margin-top:34px;border-top:1px solid var(--line);padding-top:22px}
+  .stat{padding-right:30px;margin-right:30px;border-right:1px solid var(--line)}
+  .stat:last-child{border:none;margin:0;padding:0}
+  .stat .n{font-size:27px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .stat .l{font-size:12.5px;color:var(--ink2);margin-top:5px}
+
+  /* featured card */
+  .feat{
+    position:relative;background:var(--glass);
+    backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);
+    border:1px solid var(--glass-brd);border-radius:var(--r-lg);box-shadow:var(--sh);
+    padding:14px;
+  }
+  .feat-media{
+    position:relative;height:268px;border-radius:15px;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 80% 0%, rgba(247,162,58,.16), transparent 55%),
+      repeating-linear-gradient(115deg, rgba(34,31,26,.022) 0 2px, transparent 2px 11px),
+      linear-gradient(150deg,#e9e6e1,#dcd8d2);
+    display:flex;align-items:flex-end;
+  }
+  .feat-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .feat-media::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(20,16,10,.28),transparent 34%,transparent 72%,rgba(20,16,10,.16))}
+  .feat-flag{z-index:2}
+  .feat-flag{
+    position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:7px;
+    font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    background:rgba(34,31,26,.78);color:#fff;padding:6px 11px;border-radius:9px;backdrop-filter:blur(6px);
+  }
+  .feat-flag i{width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 3px rgba(238,125,63,.3)}
+  .feat-cap{padding:16px 8px 6px}
+  .feat-cap .row1{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .feat-cap h3{font-size:21px;font-weight:700;letter-spacing:-.02em}
+  .feat-cap .yr{font-size:13px;color:var(--ink2);font-weight:500}
+  .feat-cap .price{font-size:24px;font-weight:800;color:var(--orange-d);margin-top:8px;letter-spacing:-.02em}
+  .feat-cap .price s{color:var(--ink3);font-weight:500;font-size:15px;margin-right:8px}
+  .feat-cap .spec{display:flex;gap:16px;margin-top:12px;font-size:13px;color:var(--ink2)}
+  .feat-cap .spec li{list-style:none;display:flex;align-items:center;gap:6px}
+  .feat-cap .spec li+li{padding-left:16px;border-left:1px solid var(--line)}
+
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr;gap:32px}
+    .feat-media{height:230px}
+  }
+
+  /* ---------- section frame ---------- */
+  section.block{padding:50px 0}
+  .head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:26px}
+  .head-row .label{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-d);margin-bottom:9px}
+  .head-row h2{font-size:clamp(24px,3.6vw,34px);font-weight:800;letter-spacing:-.025em;line-height:1.05}
+  .head-row p{color:var(--ink2);font-size:14.5px;margin-top:7px}
+  .viewall{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;border-bottom:1.5px solid var(--orange);padding-bottom:3px;transition:gap .18s}
+  .viewall:hover{gap:11px}
+  .viewall svg{width:15px;height:15px;color:var(--orange-d)}
+
+  /* car grid — solid neutral cards, NOT glass (contrast vs hero glass) */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:880px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .car{
+    background:var(--surf);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;
+    box-shadow:0 1px 2px rgba(34,31,26,.04);transition:transform .2s,box-shadow .2s,border-color .2s;
+  }
+  .car:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--line)}
+  .car-media{
+    position:relative;height:166px;display:flex;align-items:flex-end;
+    background:
+      repeating-linear-gradient(115deg, rgba(34,31,26,.02) 0 2px, transparent 2px 12px),
+      linear-gradient(150deg,#edeae5,#e2ded8);
+  }
+  .car-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .car-media::after{content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(20,16,10,.22),transparent 32%,transparent 76%,rgba(20,16,10,.12))}
+  .tag{
+    position:absolute;top:12px;left:12px;z-index:2;font-size:11px;font-weight:700;letter-spacing:.06em;
+    padding:5px 10px;border-radius:8px;background:var(--ink);color:#fff;
+  }
+  .tag.save{background:var(--orange)}
+  .car-body{padding:16px 17px 18px}
+  .car-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .car-head h3{font-size:16.5px;font-weight:700;letter-spacing:-.015em}
+  .car-head .yr{font-size:12.5px;color:var(--ink2);font-weight:500;flex:none}
+  .car-price{font-size:19px;font-weight:800;color:var(--orange-d);margin-top:9px;letter-spacing:-.02em}
+  .car-price s{color:var(--ink3);font-weight:500;font-size:13.5px;margin-right:7px}
+  .car-price small{color:var(--ink3);font-weight:600;font-size:11px;letter-spacing:.04em;margin-left:5px;text-transform:uppercase}
+  .car-spec{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line-2);font-size:12.5px;color:var(--ink2)}
+  .car-spec li{list-style:none;display:flex;align-items:center;gap:6px}
+  .car-spec li+li::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--ink3);margin-right:9px}
+  .car-spec svg{width:14px;height:14px;color:var(--ink3)}
+
+  /* ---------- browse (make / type) ---------- */
+  .browse{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:780px){.browse{grid-template-columns:1fr}}
+  .panel{
+    background:var(--glass-2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--glass-brd);border-radius:var(--r);box-shadow:var(--sh-sm);padding:24px 26px 14px;
+  }
+  .panel h3{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+  .panel .sub{font-size:13px;color:var(--ink2);margin-bottom:16px}
+  .index{display:flex;flex-direction:column}
+  .index a{
+    display:flex;justify-content:space-between;align-items:center;padding:11px 2px;
+    border-top:1px solid var(--line-2);font-size:15px;font-weight:500;transition:color .16s,padding .16s;
+  }
+  .index a:first-child{border-top:none}
+  .index a:hover{color:var(--orange-d);padding-left:6px}
+  .index a .c{font-size:12.5px;color:var(--ink3);font-variant-numeric:tabular-nums;font-weight:600}
+  .index a:hover .c{color:var(--orange-d)}
+
+  /* ---------- about ---------- */
+  .about{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+  @media(max-width:820px){.about{grid-template-columns:1fr;gap:28px}}
+  .about h2{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.04;margin-bottom:18px}
+  .about h2 em{font-style:normal;color:var(--orange)}
+  .about p{color:var(--ink2);font-size:16px;max-width:38em;margin-bottom:16px}
+  .trust{display:flex;flex-direction:column;gap:14px;margin-top:26px}
+  .trust li{list-style:none;display:flex;gap:13px;align-items:flex-start}
+  .trust .ic{flex:none;width:38px;height:38px;border-radius:11px;background:rgba(238,125,63,.12);display:flex;align-items:center;justify-content:center}
+  .trust .ic svg{width:18px;height:18px;color:var(--orange-d)}
+  .trust h4{font-size:15px;font-weight:700;letter-spacing:-.01em}
+  .trust p{font-size:13.5px;color:var(--ink2);margin:2px 0 0;max-width:none}
+  .addr-card{
+    background:var(--glass);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+    border:1px solid var(--glass-brd);border-radius:var(--r-lg);box-shadow:var(--sh);padding:28px;
+  }
+  .addr-card .logo-l{width:118px;margin-bottom:18px}
+  .addr-card .nm{font-size:16px;font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
+  .addr-card .ln{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--ink2);padding:9px 0;border-top:1px solid var(--line-2)}
+  .addr-card .ln svg{width:16px;height:16px;color:var(--orange-d);flex:none;margin-top:3px}
+  .addr-card .ln a:hover{color:var(--orange-d)}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:30px;border-top:1px solid var(--line);background:rgba(255,255,255,.4);backdrop-filter:blur(8px)}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:38px;padding:50px 0 34px}
+  @media(max-width:780px){.foot{grid-template-columns:1fr 1fr;gap:30px}}
+  @media(max-width:480px){.foot{grid-template-columns:1fr}}
+  .foot .logo-l{width:140px;margin-bottom:16px}
+  .foot .desc{font-size:13.5px;color:var(--ink2);max-width:26em;margin-bottom:18px}
+  .foot .wa{margin-top:2px}
+  .foot h5{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:15px}
+  .foot ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .foot ul a{font-size:14px;color:var(--ink2);transition:color .16s}
+  .foot ul a:hover{color:var(--orange-d)}
+  .foot-bot{border-top:1px solid var(--line);padding:20px 0 30px}
+  .foot-bot .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .foot-bot p{font-size:12.5px;color:var(--ink2)}
+  .foot-bot .soc{display:flex;gap:8px}
+  .foot-bot .soc a{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ink2);transition:.16s}
+  .foot-bot .soc a:hover{color:#fff;background:var(--orange);border-color:var(--orange)}
+  .foot-bot .soc svg{width:15px;height:15px}
+
+  /* ---------- reveal ---------- */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  .hero .rv{transition-delay:calc(var(--d,0)*1ms)}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- top utility -->
+<div class="util">
+  <div class="wrap">
+    <div class="util-l">JDM Export Studio <b>(Warmglow Ltd.)</b> · Hachioji, Tokyo</div>
+    <div class="util-r">
+      <span class="clock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Japan <b id="jst">--:--</b></span>
+      <span class="sep">/</span>
+      <span>Premium Member · 2nd Year</span>
+    </div>
+  </div>
+</div>
+
+<!-- header -->
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="#" aria-label="Warmglow home">
+        <span class="mark"><img src="images/warmglow-mark.png" alt=""></span>
+        <span class="wm">WARMGLOW</span>
+      </a>
+      <nav class="menu">
+        <a href="#" class="active">Home</a>
+        <a href="#latest">Stock List</a>
+        <a href="#browse">Browse</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="wa" href="#contact">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.96 1.36-.5.04-.96.23-3.24-.68-2.74-1.08-4.46-3.88-4.6-4.06-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.24-.27.53-.34.71-.34.18 0 .36.002.51.01.16.007.39-.06.6.46.24.6.82 2.07.89 2.22.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.54.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.05 1.27.27.13.42.11.58-.07.16-.18.66-.77.84-1.04.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.13.45.2.51.31.06.11.06.65-.18 1.33Z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <button class="burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <span class="eyebrow rv" style="--d:0">Est. Hachioji · Tokyo · Worldwide export</span>
+        <h1 class="head rv" style="--d:80">Find your<br><em>JDM</em></h1>
+        <p class="lede rv" style="--d:160"><b>1,109 inspected vehicles</b> in stock at our Hachioji yard — kei trucks, sedans, sports cars and the occasional supercar, shipped to your port.</p>
+
+        <div class="search rv" style="--d:240">
+          <svg class="mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+          <input type="text" placeholder="Make, model or keyword — e.g. Skyline GT-R" aria-label="Search stock">
+          <button>Search</button>
+        </div>
+        <div class="quick rv" style="--d:300">
+          <span>Popular</span>
+          <a href="#">Sports Cars</a>
+          <a href="#">Kei Trucks</a>
+          <a href="#">SUV</a>
+          <a href="#">Sedans</a>
+          <a href="#">Supercars</a>
+        </div>
+
+        <div class="stats rv" style="--d:380">
+          <div class="stat"><div class="n tnum">1,109</div><div class="l">Vehicles in stock</div></div>
+          <div class="stat"><div class="n tnum">1</div><div class="l">Arrived today</div></div>
+          <div class="stat"><div class="n tnum">9</div><div class="l">Hot offers</div></div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="feat rv" style="--d:300">
+          <div class="feat-media">
+            <img src="images/cars/gtr.jpg" alt="Nissan Skyline GT-R R34">
+            <span class="feat-flag"><i></i>Featured</span>
+          </div>
+          <div class="feat-cap">
+            <div class="row1"><h3>Nissan Skyline GT-R</h3><span class="yr">2002 · R34</span></div>
+            <div class="price tnum"><s>$126,470</s>$125,660 <small style="font-size:12px;color:var(--orange);font-weight:600;text-transform:none;letter-spacing:0">Save $820</small></div>
+            <ul class="spec tnum">
+              <li>3,800 cc</li>
+              <li>23,000 km</li>
+              <li>Coupe</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- latest arrivals -->
+<section class="block" id="latest">
+  <div class="wrap">
+    <div class="head-row rv">
+      <div>
+        <div class="label">Just landed</div>
+        <h2>Latest Arrivals</h2>
+        <p>Freshly inspected stock from the Hachioji yard.</p>
+      </div>
+      <a class="viewall" href="#">View all 1,109<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid">
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/180sx.jpg" alt="Nissan 180SX" loading="lazy"><span class="tag">New today</span></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Nissan 180SX</h3><span class="yr">1992</span></div>
+          <div class="car-price tnum">$24,830 <small>FOB</small></div>
+          <ul class="car-spec tnum"><li>2,000 cc</li><li>134,000 km</li><li>Coupe</li></ul>
+        </div>
+      </article>
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/celsior2018.jpg" alt="Lexus Celsior 2018" loading="lazy"></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Lexus Celsior</h3><span class="yr">2018</span></div>
+          <div class="car-price tnum">$28,450 <small>FOB</small></div>
+          <ul class="car-spec tnum"><li>3,500 cc</li><li>33,000 km</li><li>Sedan</li></ul>
+        </div>
+      </article>
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/celsior2012.jpg" alt="Lexus Celsior 2012" loading="lazy"></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Lexus Celsior</h3><span class="yr">2012</span></div>
+          <div class="car-price tnum">$15,250 <small>FOB</small></div>
+          <ul class="car-spec tnum"><li>5,000 cc</li><li>78,000 km</li><li>Sedan</li></ul>
+        </div>
+      </article>
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/celsior2011.jpg" alt="Lexus Celsior 2011" loading="lazy"></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Lexus Celsior</h3><span class="yr">2011</span></div>
+          <div class="car-price tnum">$5,650 <small>FOB</small></div>
+          <ul class="car-spec tnum"><li>4,600 cc</li><li>112,000 km</li><li>Sedan</li></ul>
+        </div>
+      </article>
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/minicab.jpg" alt="Mitsubishi Minicab Truck" loading="lazy"></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Mitsubishi Minicab</h3><span class="yr">1991</span></div>
+          <div class="car-price tnum">$6,750 <small>FOB</small></div>
+          <ul class="car-spec tnum"><li>660 cc</li><li>42,000 km</li><li>Kei Truck</li></ul>
+        </div>
+      </article>
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/audiq7.jpg" alt="Audi Q7 2023" loading="lazy"></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Audi Q7</h3><span class="yr">2023</span></div>
+          <div class="car-price tnum">$29,400 <small>FOB</small></div>
+          <ul class="car-spec tnum"><li>3,000 cc</li><li>64,800 km</li><li>SUV</li></ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- hot offers -->
+<section class="block" id="offers">
+  <div class="wrap">
+    <div class="head-row rv">
+      <div>
+        <div class="label">Price reduced</div>
+        <h2>Hot Offers</h2>
+        <p>Discounted stock — while it lasts.</p>
+      </div>
+      <a class="viewall" href="#">View all 9 offers<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="grid">
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/skyline.jpg" alt="Nissan Skyline 2002" loading="lazy"><span class="tag save">Save $820</span></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Nissan Skyline</h3><span class="yr">2002</span></div>
+          <div class="car-price tnum"><s>$126,470</s>$125,660</div>
+          <ul class="car-spec tnum"><li>2,600 cc</li><li>26,000 km</li><li>Coupe</li></ul>
+        </div>
+      </article>
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/altezza.jpg" alt="Toyota Altezza 2001" loading="lazy"><span class="tag save">Save $190</span></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Toyota Altezza</h3><span class="yr">2001</span></div>
+          <div class="car-price tnum"><s>$12,490</s>$12,300</div>
+          <ul class="car-spec tnum"><li>1,999 cc</li><li>59,310 km</li><li>Sedan</li></ul>
+        </div>
+      </article>
+
+      <article class="car rv">
+        <div class="car-media"><img src="images/cars/audiq7b.jpg" alt="Audi Q7" loading="lazy"><span class="tag save">Save $60</span></div>
+        <div class="car-body">
+          <div class="car-head"><h3>Audi Q7</h3><span class="yr">2023</span></div>
+          <div class="car-price tnum"><s>$29,470</s>$29,400</div>
+          <ul class="car-spec tnum"><li>3,000 cc</li><li>64,800 km</li><li>SUV</li></ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- browse -->
+<section class="block" id="browse">
+  <div class="wrap">
+    <div class="head-row rv">
+      <div>
+        <div class="label">Find it fast</div>
+        <h2>Browse the yard</h2>
+        <p>By manufacturer or by body type.</p>
+      </div>
+    </div>
+    <div class="browse">
+      <div class="panel rv">
+        <h3>By Make</h3>
+        <p class="sub">From kei specialists to European marques.</p>
+        <div class="index">
+          <a href="#">Audi <span class="c">142</span></a>
+          <a href="#">BMW <span class="c">118</span></a>
+          <a href="#">Honda <span class="c">96</span></a>
+          <a href="#">Bentley <span class="c">7</span></a>
+          <a href="#">Ferrari <span class="c">5</span></a>
+          <a href="#">Lamborghini <span class="c">4</span></a>
+          <a href="#">Daihatsu <span class="c">61</span></a>
+          <a href="#">Isuzu <span class="c">23</span></a>
+        </div>
+      </div>
+      <div class="panel rv">
+        <h3>By Type</h3>
+        <p class="sub">Whatever your port needs.</p>
+        <div class="index">
+          <a href="#">Sports Cars <span class="c">49</span></a>
+          <a href="#">Sedan <span class="c">220</span></a>
+          <a href="#">SUV <span class="c">183</span></a>
+          <a href="#">Coupe <span class="c">88</span></a>
+          <a href="#">Mini Truck <span class="c">62</span></a>
+          <a href="#">Wagon <span class="c">54</span></a>
+          <a href="#">Van / Minivan <span class="c">76</span></a>
+          <a href="#">Trucks <span class="c">19</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- about -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="about">
+      <div class="rv">
+        <h2>A premier exporter of <em>Japanese vehicles</em> &amp; parts</h2>
+        <p>JDM Export Studio (Warmglow Ltd.) sources, inspects and ships high-quality Japanese automobiles from our base in Hachioji, Tokyo — to buyers and dealers around the world.</p>
+        <ul class="trust">
+          <li>
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 4 5v6c0 4.4 3.2 8.4 8 9.6 4.8-1.2 8-5.2 8-9.6V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <div><h4>Trust, safety &amp; security</h4><p>Accredited member of Japan's recognised trade associations.</p></div>
+          </li>
+          <li>
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M2.5 12h19M12 2.5c2.5 2.6 3.8 6 3.8 9.5S14.5 18.9 12 21.5C9.5 18.9 8.2 15.5 8.2 12S9.5 5.1 12 2.5Z"/></svg></span>
+            <div><h4>Shipped worldwide</h4><p>Door-to-port logistics handled end to end from Tokyo.</p></div>
+          </li>
+          <li>
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7 9 18l-5-5"/></svg></span>
+            <div><h4>Every car inspected</h4><p>Condition and mileage verified before it reaches the listing.</p></div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="addr-card rv" id="contact">
+        <img class="logo-l" src="images/warmglow-logo.png" alt="Warmglow">
+        <div class="nm">JDM Export Studio (Warmglow Ltd.)</div>
+        <div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>4F, Nagasawa Building, 12-8 Azumachou,<br>Hachioji, Tokyo, Japan 192-0082</span></div>
+        <div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg><a href="#">Send an inquiry</a></div>
+        <div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M2.5 12h19M12 3c2.5 2.7 3.8 6 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-6-3.8-9S9.5 5.7 12 3Z"/></svg><a href="#">www.warmglow.ltd</a></div>
+        <a class="wa" style="margin-top:18px;width:100%;justify-content:center" href="#">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.96 1.36-.5.04-.96.23-3.24-.68-2.74-1.08-4.46-3.88-4.6-4.06-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.24-.27.53-.34.71-.34.18 0 .36.002.51.01.16.007.39-.06.6.46.24.6.82 2.07.89 2.22.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.54.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.05 1.27.27.13.42.11.58-.07.16-.18.66-.77.84-1.04.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.13.45.2.51.31.06.11.06.65-.18 1.33Z"/></svg>
+          <span>Message us on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img class="logo-l" src="images/warmglow-logo.png" alt="Warmglow">
+        <p class="desc">Premier exporter of Japanese vehicles and parts, delivering high-quality automobiles worldwide from Hachioji, Tokyo.</p>
+        <a class="wa" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.96 1.36-.5.04-.96.23-3.24-.68-2.74-1.08-4.46-3.88-4.6-4.06-.13-.18-1.1-1.46-1.1-2.79 0-1.33.7-1.98.94-2.25.24-.27.53-.34.71-.34.18 0 .36.002.51.01.16.007.39-.06.6.46.24.6.82 2.07.89 2.22.07.15.12.32.02.5-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.54.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.05 1.27.27.13.42.11.58-.07.16-.18.66-.77.84-1.04.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.13.45.2.51.31.06.11.06.65-.18 1.33Z"/></svg><span>WhatsApp</span></a>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#latest">Stock List</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#">Send Inquiry</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Useful Info</h5>
+        <ul>
+          <li><a href="#">How to Buy</a></li>
+          <li><a href="#">Import Regulations</a></li>
+          <li><a href="#">Freight Rates</a></li>
+          <li><a href="#">Avoid Fraud / Scams</a></li>
+          <li><a href="#">Help &amp; Support</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <div class="wrap">
+      <p>© 2026–2027 JDM Export Studio (Warmglow Ltd.). All rights reserved. · Powered by JapaneseCarTrade.com</p>
+      <div class="soc">
+        <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v7h3v-7H16l.5-3h-3v-2c0-.6.4-1 1-1Z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3h3l-7 8 8 10h-6l-5-6-5 6H2l8-9L2 3h6l4 5 5-5Z"/></svg></a>
+        <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // live Japan time (JST)
+  function tick(){
+    try{
+      const t = new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit'});
+      document.getElementById('jst').textContent = t;
+    }catch(e){}
+  }
+  tick(); setInterval(tick, 15000);
+
+  // scroll reveal
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach((el,i)=>{
+    if(el.closest('.hero')){ // hero reveals on load
+      requestAnimationFrame(()=>setTimeout(()=>el.classList.add('in'), 60));
+    } else io.observe(el);
+  });
+</script>
+</body>
+</html>
