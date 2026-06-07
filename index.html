@@ -116,6 +116,11 @@
     transition:background .18s}
   .wa-fab:hover{background:rgba(30,184,86,.92)}
   .wa-fab svg{width:19px;height:19px}
+  /* desktop: compact, centered pill instead of full nav-width */
+  @media(min-width:600px){
+    .tabbar .wrap{display:flex;justify-content:center}
+    .wa-fab{width:auto;padding:14px 42px}
+  }
 
   /* ---------- hero ---------- */
   .hero{padding:54px 0 30px}
